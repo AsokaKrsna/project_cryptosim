@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation — CryptoSIM</title>
+  <meta name="description" content="Complete documentation for CryptoSIM — the visual cryptography sandbox. Learn the bricks system, Professor Mode, keyboard shortcuts, and all 17 clusters." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="icon.png" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .docs-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      max-width: 1400px;
+      margin: 100px auto 0;
+      min-height: calc(100vh - 100px);
+      padding: 0 1.5rem;
+      gap: 3rem;
+    }
+    .docs-sidebar {
+      position: sticky;
+      top: 100px;
+      height: calc(100vh - 120px);
+      overflow-y: auto;
+      padding-right: 1rem;
+      border-right: 1px solid var(--node-border);
+    }
+    .docs-sidebar::-webkit-scrollbar { width: 6px; }
+    .docs-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+    .docs-nav-group { margin-bottom: 2rem; }
+    .docs-nav-title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--type-bytes);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .docs-nav-links { display: flex; flex-direction: column; gap: 0.3rem; }
+    .docs-nav-links a {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+      border-left: 2px solid transparent;
+    }
+    .docs-nav-links a:hover, .docs-nav-links a.active {
+      background: rgba(255,255,255,0.05);
+      color: var(--text-main);
+    }
+    .docs-nav-links a.active {
+      border-left-color: var(--type-bytes);
+      border-radius: 0 6px 6px 0;
+    }
+    .docs-content { padding-bottom: 8rem; }
+    .docs-content h1 { font-size: 2.8rem; margin-bottom: 1rem; }
+    .docs-content h2 { font-size: 1.75rem; margin: 3rem 0 1rem; border-bottom: 1px solid var(--node-border); padding-bottom: 0.5rem; }
+    .docs-content h3 { font-size: 1.2rem; margin: 2rem 0 0.75rem; color: var(--text-main); }
+    .docs-content p, .docs-content ul, .docs-content ol { color: var(--text-muted); line-height: 1.75; margin-bottom: 1.25rem; font-size: 1rem; }
+    .docs-content ul, .docs-content ol { padding-left: 1.5rem; }
+    .docs-content li { margin-bottom: 0.5rem; }
+    .docs-content pre {
+      background: rgba(0,0,0,0.55);
+      border: 1px solid var(--node-border);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: var(--type-boolean);
+      margin-bottom: 1.75rem;
+      line-height: 1.6;
+    }
+    .docs-content code {
+      background: rgba(255,255,255,0.06);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      color: var(--type-point);
+      font-size: 0.88em;
+    }
+    .docs-callout {
+      background: rgba(59,130,246,0.06);
+      border-left: 3px solid var(--type-bytes);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1.75rem;
+    }
+    .docs-callout strong { color: var(--type-bytes); display: block; margin-bottom: 0.4rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .docs-callout.warning { background: rgba(245,158,11,0.06); border-color: var(--type-number); }
+    .docs-callout.warning strong { color: var(--type-number); }
+    .docs-callout.success { background: rgba(34,197,94,0.06); border-color: var(--type-boolean); }
+    .docs-callout.success strong { color: var(--type-boolean); }
+    .docs-callout p { margin: 0; color: var(--text-muted); font-size: 0.95rem; }
+
+    /* Type badge grid */
+    .type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.75rem; }
+    .type-card {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--node-border);
+      border-radius: 8px;
+      padding: 1rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+    .type-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; margin-top: 3px; }
+    .type-card-info strong { display: block; font-size: 0.9rem; color: var(--text-main); margin-bottom: 0.25rem; }
+    .type-card-info span { font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono); }
+
+    /* Cluster grid */
+    .cluster-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 2rem; }
+    .cluster-card {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--node-border);
+      border-radius: 10px;
+      padding: 1.1rem 1.25rem;
+      border-left: 3px solid var(--type-bytes);
+    }
+    .cluster-card-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .cluster-card-header strong { font-size: 0.9rem; color: var(--text-main); }
+    .cluster-card-header .cluster-num {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.05);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .cluster-card p { font-size: 0.82rem; color: var(--text-muted); margin: 0 0 0.5rem; line-height: 1.5; }
+    .cluster-bricks { font-family: var(--font-mono); font-size: 0.72rem; color: var(--type-field); }
+
+    /* Keyboard shortcut table */
+    .kbd-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+    .kbd-table th { text-align: left; padding: 0.6rem 1rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); border-bottom: 1px solid var(--node-border); }
+    .kbd-table td { padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text-muted); font-size: 0.9rem; }
+    .kbd-table tr:hover td { background: rgba(255,255,255,0.02); }
+    kbd {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 5px;
+      padding: 2px 8px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-main);
+    }
+
+    /* Step list */
+    .step-list { list-style: none; padding: 0; counter-reset: steps; }
+    .step-list li {
+      counter-increment: steps;
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .step-list li::before {
+      content: counter(steps);
+      background: rgba(59,130,246,0.15);
+      border: 1px solid rgba(59,130,246,0.3);
+      color: var(--type-bytes);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    @media (max-width: 900px) {
+      .docs-layout { grid-template-columns: 1fr; }
+      .docs-sidebar { display: none; }
+      .type-grid, .cluster-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Background ── -->
+  <div class="canvas-grid-bg" id="gridBg">
+    <div class="glow-orb orb-primary" id="orb1" style="background: radial-gradient(circle, var(--type-bytes), transparent 70%);"></div>
+    <div class="glow-orb orb-secondary" id="orb2" style="background: radial-gradient(circle, var(--type-array), transparent 70%);"></div>
+    <div class="glow-orb orb-tertiary" id="orb3" style="top: 80%; opacity: 0.2;"></div>
+  </div>
+
+  <!-- ── Navigation ── -->
+  <nav class="nav">
+    <a href="index.html" class="nav-brand">
+      <img src="icon.png" alt="CryptoSIM Logo" class="logo-node" style="height: 28px; width: 28px; filter: drop-shadow(0 0 8px rgba(59,130,246,0.6));" />
+      <span>CryptoSIM</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#features">Features</a>
+      <a href="docs.html" class="active" style="color:var(--text-main)">Docs</a>
+      <a href="index.html#pro">Professor Mode</a>
+      <a href="donate.html">Donate</a>
+      <a href="mailto:durjoymajumdar02@gmail.com?subject=CryptoSIM%20Contribution">Contribute</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="index.html#download" class="btn btn-primary btn-sm">Get App ↓</a>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <!-- ── Sidebar ── -->
+    <aside class="docs-sidebar">
+      <div class="docs-nav-group">
+        <div class="docs-nav-title">🚀 Getting Started</div>
+        <div class="docs-nav-links">
+          <a href="#quickstart" class="active">What is CryptoSIM?</a>
+          <a href="#installation">Installation</a>
+        </div>
+      </div>
+      <div class="docs-nav-group">
+        <div class="docs-nav-title">🧱 Core Concepts</div>
+        <div class="docs-nav-links">
+          <a href="#bricks">The Bricks System</a>
+          <a href="#port-typing">Port Types &amp; Colors</a>
+          <a href="#execution">Execution Engine</a>
+          <a href="#shortcuts">Keyboard Shortcuts</a>
+        </div>
+      </div>
+      <div class="docs-nav-group">
+        <div class="docs-nav-title">🛠️ Advanced Tools</div>
+        <div class="docs-nav-links">
+          <a href="#debugger">Step-by-Step Debugger</a>
+          <a href="#inspector">Deep Data Inspector</a>
+          <a href="#autolayout">Auto-Layout & Clipboard</a>
+        </div>
+      </div>
+      <div class="docs-nav-group">
+        <div class="docs-nav-title">📦 Brick Clusters</div>
+        <div class="docs-nav-links">
+          <a href="#clusters">All 17 Clusters</a>
+          <a href="#cluster-crypto">Symmetric Crypto</a>
+          <a href="#cluster-hash">Hashing</a>
+          <a href="#cluster-asym">Asymmetric &amp; ZK</a>
+          <a href="#cluster-chain">Blockchain</a>
+          <a href="#cluster-attacks">Attack Simulations</a>
+        </div>
+      </div>
+      <div class="docs-nav-group">
+        <div class="docs-nav-title">🎓 Professor Mode</div>
+        <div class="docs-nav-links">
+          <a href="#professor-mode">Overview</a>
+          <a href="#prof-workflow">Lesson Workflow</a>
+          <a href="#prof-constraints">Lock &amp; Hide</a>
+        </div>
+      </div>
+      <div class="docs-nav-group">
+        <div class="docs-nav-title">💾 Files</div>
+        <div class="docs-nav-links">
+          <a href="#sharing">Save &amp; Share</a>
+          <a href="#file-format">.cryptosim Format</a>
+        </div>
+      </div>
+      <div class="docs-nav-group">
+        <div class="docs-nav-title">❓ Help</div>
+        <div class="docs-nav-links">
+          <a href="#faq">FAQ</a>
+          <a href="#troubleshooting">Troubleshooting</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Main Content ── -->
+    <main class="docs-content">
+
+      <!-- ═══ Getting Started ═══ -->
+      <section id="quickstart">
+        <h1>Documentation</h1>
+        <p class="hero-sub" style="font-size:1.1rem;">Everything you need to go from zero to wiring cryptographic circuits in minutes.</p>
+
+        <div class="docs-callout">
+          <strong>What is CryptoSIM?</strong>
+          <p>CryptoSIM is an offline-first native desktop application built with Tauri and Rust. It gives you a visual, node-based canvas where you wire together <strong>310 cryptographic and blockchain primitives</strong> — called Bricks — without writing a single line of code. Data flows through typed wires in real time as you build.</p>
+        </div>
+
+        <h3>Who is it for?</h3>
+        <ul>
+          <li><strong style="color:var(--text-main)">Students</strong> — build intuition for SHA-256, AES, ECDSA, and ZK proofs by seeing the bytes flow</li>
+          <li><strong style="color:var(--text-main)">Educators</strong> — create interactive lessons with locked bricks and guided objectives using Professor Mode</li>
+          <li><strong style="color:var(--text-main)">Developers</strong> — prototype key derivation pipelines, signing flows, or Merkle proofs visually before writing code</li>
+          <li><strong style="color:var(--text-main)">Researchers</strong> — simulate attack scenarios (51% attack, padding oracle, nonce reuse) in a safe sandbox</li>
+        </ul>
+      </section>
+
+      <!-- ═══ Installation ═══ -->
+      <section id="installation">
+        <h2>Installation</h2>
+
+        <h3>Windows (Recommended)</h3>
+        <p>Download <code>CryptoSIM_Setup_v1.0.2.exe</code> and run it. The NSIS wizard will install CryptoSIM to <code>C:\Program Files\CryptoSIM\</code>, create a Start Menu entry, and register <code>.cryptosim</code> as a file type so you can open canvas files by double-clicking them.</p>
+
+        <div class="docs-callout">
+          <strong>Windows SmartScreen Warning</strong>
+          <p>On first launch, Windows may show "Windows protected your PC." Click <strong>More info → Run anyway</strong>. This warning appears because the binary is not yet code-signed (an EV certificate costs ~$300/year). It does not affect functionality and diminishes as the app gains reputation.</p>
+        </div>
+
+        <h3>Linux (Debian/Ubuntu)</h3>
+        <p>Download the <code>.deb</code> package and install:</p>
+        <pre>sudo dpkg -i CryptoSIM_v1.0.2_amd64.deb
+sudo apt-get install -f   # resolve any missing dependencies</pre>
+
+        <div class="docs-callout warning">
+          <strong>macOS</strong>
+          <p>macOS support requires an Apple Developer account to sign and notarize the binary. We are currently seeking donations to fund this. If you need macOS support urgently, <a href="index.html#contact" style="color:var(--type-bytes)">get in touch</a>.</p>
+        </div>
+
+        <h3>System Requirements</h3>
+        <ul>
+          <li>Windows 10 or 11 (64-bit) — <strong>WebView2 required</strong> (pre-installed on Win11; auto-installs on Win10)</li>
+          <li>Linux — any modern distribution with WebKit2GTK 4.1</li>
+          <li>~3 MB disk space; no internet connection required after install</li>
+        </ul>
+      </section>
+
+      <!-- ═══ Bricks System ═══ -->
+      <section id="bricks">
+        <h2>The Bricks System</h2>
+        <p>Every operation in CryptoSIM is a <strong>Brick</strong> — a self-contained computation node with typed input and output ports. Building a "circuit" means dragging bricks from the palette onto the canvas and connecting their ports with wires.</p>
+
+        <h3>Three categories of bricks</h3>
+        <ul>
+          <li><strong style="color:var(--text-main)">Source bricks</strong> — produce data with no inputs: <code>STRING</code>, <code>NUMBER</code>, <code>RANDOM BYTES</code>, <code>TIMESTAMP</code>.</li>
+          <li><strong style="color:var(--text-main)">Transform bricks</strong> — consume inputs and emit outputs: e.g. <code>SHA-256</code>, <code>AES ROUND</code>, <code>ECDSA</code>, <code>MINER</code>. These make up the bulk of the 310 bricks.</li>
+          <li><strong style="color:var(--text-main)">Sink bricks</strong> — display or consume the final result: <code>DISPLAY</code>, <code>LOG</code>, <code>INSPECTOR</code>.</li>
+        </ul>
+
+        <h3>How bricks compute</h3>
+        <ol class="step-list">
+          <li>You connect an upstream brick's output port to a downstream brick's input port.</li>
+          <li>The execution engine immediately recomputes the downstream brick using topological ordering — so every dependent brick refreshes automatically.</li>
+          <li>The result flows along the wire as a live value, color-coded and visible on hover.</li>
+          <li>If a brick gets an error (wrong type, missing input, cryptographic failure) it shows a red status and a specific message — not a silent failure.</li>
+        </ol>
+
+        <h3>Brick palette</h3>
+        <p>All bricks are organized by cluster in the left-hand palette. Click a cluster header to expand it, then <strong>drag a brick onto the canvas</strong>. You can also search by name using the palette search bar. Hover over any brick in the palette to see its port signature before placing it.</p>
+
+        <div class="docs-callout">
+          <strong>Pro tip — Display Modes</strong>
+          <p>Each brick has multiple display modes accessible via the mode button in its header: <code>standard</code> (default), <code>compact</code> (small card), and <code>expanded</code> (shows visualization panel with step-through controls for complex bricks like AES Round or ECC Scalar Mult).</p>
+        </div>
+      </section>
+
+      <!-- ═══ Port Typing ═══ -->
+      <section id="port-typing">
+        <h2>Port Types &amp; Colors</h2>
+        <p>Every port has a strict type. Wires can only connect ports of <strong>compatible types</strong>. This prevents invalid cryptographic operations — you cannot accidentally feed a BigInt where raw bytes are expected.</p>
+
+        <div class="type-grid">
+          <div class="type-card">
+            <div class="type-dot" style="background:#3b82f6;"></div>
+            <div class="type-card-info">
+              <strong>Bytes</strong>
+              <span>Raw byte arrays. SHA digests, AES ciphertext, keys, signatures, nonces.</span>
+            </div>
+          </div>
+          <div class="type-card">
+            <div class="type-dot" style="background:#f59e0b;"></div>
+            <div class="type-card-info">
+              <strong>Number</strong>
+              <span>Arbitrary-precision BigInt. RSA moduli, scalar values, iteration counts.</span>
+            </div>
+          </div>
+          <div class="type-card">
+            <div class="type-dot" style="background:#a855f7;"></div>
+            <div class="type-card-info">
+              <strong>Point</strong>
+              <span>An (x, y) coordinate on an elliptic curve. Used by ECC bricks.</span>
+            </div>
+          </div>
+          <div class="type-card">
+            <div class="type-dot" style="background:#22c55e;"></div>
+            <div class="type-card-info">
+              <strong>Boolean</strong>
+              <span>True / False. Output of signature verifiers and hash comparators.</span>
+            </div>
+          </div>
+          <div class="type-card">
+            <div class="type-dot" style="background:#14b8a6;"></div>
+            <div class="type-card-info">
+              <strong>Field Element</strong>
+              <span>A value in a finite field — used by advanced ZK and pairing bricks.</span>
+            </div>
+          </div>
+          <div class="type-card">
+            <div class="type-dot" style="background:#6366f1;"></div>
+            <div class="type-card-info">
+              <strong>Array</strong>
+              <span>Ordered list of typed values. Merkle tree leaf lists, key arrays.</span>
+            </div>
+          </div>
+          <div class="type-card">
+            <div class="type-dot" style="background:#6b7280;"></div>
+            <div class="type-card-info">
+              <strong>BitString</strong>
+              <span>A string of '0'/'1' characters — used by logic and bitwise bricks.</span>
+            </div>
+          </div>
+          <div class="type-card">
+            <div class="type-dot" style="background:#f8fafc; box-shadow: 0 0 0 1px rgba(255,255,255,0.2);"></div>
+            <div class="type-card-info">
+              <strong>Any</strong>
+              <span>Passes through whatever it receives. Used by utility and display bricks.</span>
+            </div>
+          </div>
+        </div>
+
+        <p>When you hover over a port, a tooltip shows the type name and a short description. When you drag a wire from an output, all <em>incompatible</em> input ports on other bricks dim — making valid connections obvious at a glance.</p>
+
+        <div class="docs-callout warning">
+          <strong>Type Coercion</strong>
+          <p>CryptoSIM does <em>not</em> silently coerce types. If you need to convert a hex string to raw bytes, use the <code>DECODE</code> brick (Cluster 02). If you need to turn bytes into a BigInt, use the <code>TYPE CAST</code> brick.</p>
+        </div>
+      </section>
+
+      <!-- ═══ Execution Engine ═══ -->
+      <section id="execution">
+        <h2>Execution Engine</h2>
+        <p>CryptoSIM does not use a typical event loop. It uses a <strong>topological execution engine</strong>. When you change a value, the engine maps the entire graph, sorts it from left to right (dependencies first), and fires the <code>compute()</code> method on every affected brick in order.</p>
+        
+        <p>This guarantees that by the time a signature verifier runs, both the message hash and the public key have finished computing.</p>
+
+        <div class="docs-callout">
+          <strong>Run All (Ctrl+R)</strong>
+          <p>By default, CryptoSIM evaluates the graph automatically as you type or connect wires. However, if you load a large file (50+ bricks) or experience visual desync, click the <strong>▶ Run All</strong> button in the top menu or press <code>Ctrl+R</code>. This forces a complete re-evaluation of every brick on the canvas.</p>
+        </div>
+
+        <h3>Background threads</h3>
+        <p>Most operations (SHA-256, AES) are so fast they execute synchronously inside the React render cycle via WebAssembly or Rust bindings. Heavy workload bricks (like PBKDF2 with 10M iterations, or the Proof-of-Work Miner) offload explicitly to Web Workers, freeing up the UI thread so you can continue panning the canvas.</p>
+      </section>
+
+      <!-- ═══ Keyboard Shortcuts ═══ -->
+      <section id="shortcuts">
+        <h2>Keyboard Shortcuts</h2>
+        <p>Mastering these will significantly speed up your workflow.</p>
+
+        <table class="kbd-table">
+          <thead>
+            <tr>
+              <th style="width:120px;">Shortcut</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><kbd>Space</kbd> + Drag</td>
+              <td>Pan the canvas (like Photoshop). Useful when zoomed in.</td>
+            </tr>
+            <tr>
+              <td><kbd>Scroll</kbd></td>
+              <td>Pan the canvas up/down.</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl</kbd> + Scroll</td>
+              <td>Zoom the canvas in/out toward your cursor.</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl</kbd> + Drag</td>
+              <td>Marquee selection — draw a box to select multiple bricks.</td>
+            </tr>
+            <tr>
+              <td><kbd>Shift</kbd> + Click</td>
+              <td>Add a brick to the current selection.</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl</kbd> + <kbd>A</kbd></td>
+              <td>Select all bricks on the canvas.</td>
+            </tr>
+            <tr>
+              <td><kbd>Delete</kbd> / <kbd>Backspace</kbd></td>
+              <td>Delete all selected bricks and selected wires.</td>
+            </tr>
+            <tr>
+              <td><kbd>Escape</kbd></td>
+              <td>Clear the current selection.</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl</kbd> + <kbd>Z</kbd></td>
+              <td>Undo the last action (move, wire, config change, delete).</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl</kbd> + <kbd>Y</kbd></td>
+              <td>Redo the undone action.</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl</kbd> + <kbd>R</kbd></td>
+              <td>Run All — force a full topological recompute of the graph.</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl</kbd> + <kbd>S</kbd></td>
+              <td>Force an immediate autosave to IndexedDB.</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl</kbd> + <kbd>C</kbd></td>
+              <td>Copy selected bricks (and internal wires) to clipboard.</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl</kbd> + <kbd>V</kbd></td>
+              <td>Paste copied bricks onto the canvas with all wires preserved.</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl</kbd> + <kbd>D</kbd></td>
+              <td>Duplicate selected bricks with their configs.</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl</kbd> + <kbd>E</kbd></td>
+              <td>Export lesson as <code>.cryptosim</code> file (Professor Mode only).</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ═══ Advanced Tools ═══ -->
+      <section id="debugger">
+        <h2>Step-by-Step Execution Debugger</h2>
+        <p>By default, CryptoSIM computes instantly. But for educational purposes (like YouTube videos or classroom demos), you can slow it down.</p>
+        <ol class="step-list">
+          <li>Look at the top toolbar next to <strong>Run All</strong>. Change the speed dropdown from ⚡ Instant to <strong>🐢 0.5s</strong> or <strong>🐌 1.0s</strong>.</li>
+          <li>Click <strong>Run All</strong>. A floating glassmorphic toolbar will appear at the bottom of the screen.</li>
+          <li>Watch as the execution engine pulses each node green in topological order!</li>
+        </ol>
+        <p>Use the ⏸ Pause, ⏪ Step Back, and ⏩ Step Forward buttons on the toolbar to manually trace the data flow through complex circuits.</p>
+      </section>
+
+      <section id="inspector">
+        <h2 style="border-bottom:none;">Deep Data Inspector</h2>
+        <p>Ever wonder exactly what those raw bytes look like inside a SHA-256 hash or an AES ciphertext?</p>
+        <div class="docs-callout">
+          <strong>Interactive Ports</strong>
+          <p>Any time you see a byte array value in the right-hand Inspector Panel, <strong>click it!</strong> This opens the Deep Data Inspector Modal, providing a professional-grade hex dump view, ASCII representation, and Base64 output.</p>
+        </div>
+      </section>
+
+      <section id="autolayout">
+        <h2 style="border-bottom:none;">Auto-Layout & Clipboard</h2>
+        <ul>
+          <li><strong style="color:var(--text-main)">Magic Wand:</strong> Click the ✨ icon in the top toolbar. The Dagre layout engine will instantly untangle your wires and organize your circuit into a clean left-to-right hierarchy.</li>
+          <li><strong style="color:var(--text-main)">Copy / Paste:</strong> Select multiple bricks and press <code>Ctrl+C</code>. Press <code>Ctrl+V</code> anywhere on the canvas to clone them. Wires <em>between</em> copied bricks are perfectly preserved!</li>
+        </ul>
+      </section>
+
+      <!-- ═══ Brick Clusters ═══ -->
+      <section id="clusters">
+        <h2>Brick Clusters</h2>
+        <p>The 310 bricks are organized into 17 distinct clusters. Here is a high-level overview of what you can find in each:</p>
+
+        <div class="cluster-grid">
+          <div class="cluster-card">
+            <div class="cluster-card-header"><span class="cluster-num">01</span> <strong>I/O &amp; Data Types</strong></div>
+            <p>Input sources (Text, Hex, Numbers, Files) and display sinks (Logger, Inspector, Boolean LED).</p>
+            <div class="cluster-bricks">STRING INPUT · RANDOM BYTES · DISPLAY</div>
+          </div>
+          <div class="cluster-card">
+            <div class="cluster-card-header"><span class="cluster-num">02</span> <strong>Encoding &amp; Formats</strong></div>
+            <p>Convert data between Hex, Base64, Base58, UTF-8, and format structures like PEM and DER.</p>
+            <div class="cluster-bricks">HEX DECODE · BASE58 ENCODE · PEM BUILDER</div>
+          </div>
+          <div class="cluster-card">
+            <div class="cluster-card-header"><span class="cluster-num">03</span> <strong>Logic &amp; Bitwise</strong></div>
+            <p>Gates (AND, OR, XOR), shifts, rotations, and multiplexers used in low-level cryptographic algorithm design.</p>
+            <div class="cluster-bricks">XOR · BIT ROTATE RIGHT · MULTIPLEXER</div>
+          </div>
+          <div class="cluster-card">
+            <div class="cluster-card-header"><span class="cluster-num">04</span> <strong>Mathematics</strong></div>
+            <p>BigInt arithmetic, modular arithmetic, prime generation, and finite field operations.</p>
+            <div class="cluster-bricks">MODULAR ADD · MODULAR INVERSE · RAND PRIME</div>
+          </div>
+          <div class="cluster-card">
+            <div class="cluster-card-header"><span class="cluster-num">05</span> <strong>Symmetric Crypto</strong></div>
+            <p id="cluster-crypto">Block ciphers, stream ciphers, modes of operation, and padding schemes.</p>
+            <div class="cluster-bricks">AES ENCRYPT · CHACHA20 · PKCS#7 PAD</div>
+          </div>
+          <div class="cluster-card">
+            <div class="cluster-card-header"><span class="cluster-num">06</span> <strong>Hashing</strong></div>
+            <p id="cluster-hash">Cryptographic hash functions spanning the SHA-1, SHA-2, SHA-3, and BLAKE families.</p>
+            <div class="cluster-bricks">SHA-256 · KECCAK-256 · BLAKE3 · RIPEMD-160</div>
+          </div>
+          <div class="cluster-card">
+            <div class="cluster-card-header"><span class="cluster-num">07</span> <strong>MAC &amp; KDF</strong></div>
+            <p>Message authentication codes and Key Derivation Functions (password hashing).</p>
+            <div class="cluster-bricks">HMAC-SHA256 · PBKDF2 · SCRYPT · ARGON2</div>
+          </div>
+          <div class="cluster-card">
+            <div class="cluster-card-header"><span class="cluster-num">08</span> <strong>Asymmetric &amp; ZK</strong></div>
+            <p id="cluster-asym">Public-key cryptography (RSA, ECC), signatures (ECDSA, Schnorr), and zero-knowledge proofs.</p>
+            <div class="cluster-bricks">GEN KEYPAIR · ECDSA SIGN · GROTH16 PROVER</div>
+          </div>
+          <div class="cluster-card" id="cluster-chain">
+            <div class="cluster-card-header"><span class="cluster-num">12</span> <strong>Consensus</strong></div>
+            <p>Mechanisms for distributed agreement, including Proof-of-Work mining loops and difficulty targets.</p>
+            <div class="cluster-bricks">MINER · VERIFY POW · DIFFICULTY TARGET</div>
+          </div>
+          <div class="cluster-card" id="cluster-attacks">
+            <div class="cluster-card-header"><span class="cluster-num">16</span> <strong>Attack Simulations</strong></div>
+            <p>Simulate common cryptographic vulnerabilities like nonce reuse or length extension attacks.</p>
+            <div class="cluster-bricks">NONCE REUSE EXPLOIT · PADDING ORACLE</div>
+          </div>
+        </div>
+        <p style="font-size: 0.9rem; margin-top: 1rem;"><span style="color:var(--type-bytes);">See the Brick Palette in the app for the full list of all 310 bricks.</span></p>
+      </section>
+
+      <!-- ═══ Professor Mode ═══ -->
+      <section id="professor-mode">
+        <h2>Professor Mode <span style="font-size:0.5em; vertical-align:middle; background:rgba(101,163,13,0.2); color:#a3e635; padding:2px 6px; border-radius:4px; margin-left:8px;">EDUCATORS</span></h2>
+        <p>Professor Mode transforms CryptoSIM from an open sandbox into an <strong>interactive lesson builder</strong>. You can author a cryptographic challenge, lock down the solution, and send it to your students as a single file.</p>
+
+        <h3 id="prof-workflow">How to create a lesson</h3>
+        <ol class="step-list">
+          <li><strong>Build the circuit:</strong> Lay out the full working solution on the canvas (e.g. a SHA-256 pre-image challenge).</li>
+          <li><strong>Enable Professor Mode:</strong> Click the "Professor Mode" button in the top right header. A new toolbar will appear at the bottom of the screen.</li>
+          <li><strong>Set the Objective:</strong> Click "Edit Objective" in the toolbar. Write a markdown description (e.g., "Find the nonce that results in a hash starting with two zeros") and define the success condition by selecting the output port of your verification brick.</li>
+          <li id="prof-constraints"><strong>Lock and Hide Bricks:</strong> Hover over any brick on the canvas. Use the <span style="color:#ef4444;">🔒 Lock</span> button to freeze the brick (students cannot delete it or move it). Use the <span style="color:#a855f7;">👁 Hide</span> button to make the brick invisible to students (useful for hiding the answer checker).</li>
+          <li><strong>Export:</strong> Click "Export Lesson" in the top bar. This generates a <code>.cryptosim</code> file that contains your locked state.</li>
+        </ol>
+
+        <div class="docs-callout success">
+          <strong>Student Experience</strong>
+          <p>When a student opens your exported <code>.cryptosim</code> file, the app automatically switches into "Lesson Active" mode. They will see the objective panel, but they will <strong>not</strong> have access to the Professor Toolbar. They cannot unlock bricks or reveal hidden ones.</p>
+        </div>
+      </section>
+
+      <!-- ═══ Files ═══ -->
+      <section id="sharing">
+        <h2>Files &amp; Sharing</h2>
+        <h3 id="file-format">The <code>.cryptosim</code> Format</h3>
+        <p>CryptoSIM saves all canvas state — bricks, wires, positions, and professor mode constraints — into a single lightweight JSON file with the <code>.cryptosim</code> extension. Since all computation happens locally, you can share these files via email, Slack, or Discord without worrying about API keys or cloud databases.</p>
+
+        <p>A typical 10-brick canvas results in a file size under 5 KB.</p>
+
+        <div class="docs-callout">
+          <strong>Autosave</strong>
+          <p>CryptoSIM automatically saves your canvas to your browser's (or Tauri's) IndexedDB every 1.5 seconds. If you accidentally close the app or experience a crash, simply reopening the app will instantly restore your exact state.</p>
+        </div>
+      </section>
+
+      <!-- ═══ FAQ & Troubleshooting ═══ -->
+      <section id="faq">
+        <h2>FAQ</h2>
+        
+        <h3>Is CryptoSIM open source?</h3>
+        <p>No, CryptoSIM is distributed under a Custom Proprietary Freeware license. It is 100% free to use for personal, educational, and commercial purposes, but the source code is not published or redistributable. You own whatever <code>.cryptosim</code> files you create.</p>
+
+        <h3>Does it work entirely offline?</h3>
+        <p>Yes. The only time CryptoSIM connects to the internet is if you click a link to this website or the donation page. All cryptographic execution, including ZK proof generation, happens locally on your machine.</p>
+
+        <h3>Why is there no macOS version?</h3>
+        <p>macOS Gatekeeper makes it exceptionally difficult to distribute an unsigned binary. Signing and notarizing requires a paid Apple Developer License ($99/yr), which the project does not currently have. We are collecting donations to fund community macOS distribution.</p>
+      </section>
+
+      <section id="troubleshooting">
+        <h2 style="border-bottom:none;">Troubleshooting</h2>
+        
+        <div class="docs-callout warning" style="margin-top:0;">
+          <strong>Canvas is blank or shows an error</strong>
+          <p>If a malformed <code>.cryptosim</code> file or an experimental brick crashes the React renderer, an <strong>Error Boundary</strong> will appear showing a red crash screen with a stack trace. Click the <strong>🗑 Clear Canvas & Reload</strong> button to purge the corrupted autosave state and start fresh.</p>
+        </div>
+
+        <h3>A wire is connected but the value isn't updating</h3>
+        <p>Click <kbd>Ctrl+R</kbd> (Run All) to force the execution engine to recalculate the entire topological graph. This usually only happens if you manually intervene in Professor Mode locking while data is mid-flight.</p>
+
+        <h3>"Unknown brick" when loading a file</h3>
+        <p>This means the <code>.cryptosim</code> file was created in a newer version of CryptoSIM that has bricks your current version doesn't recognize. Download the latest installer from the website and try again.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <span>© 2026 CryptoSIM</span>
+      <div class="footer-links">
+        <a href="donate.html">Donate</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <span>Free Forever. Not open source.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

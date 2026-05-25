@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contribute — CryptoSIM</title>
+  <meta name="description" content="How to contribute to CryptoSIM's open source website or report bugs for the proprietary core app." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="icon.png" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .docs-layout {
+      max-width: 900px;
+      margin: 120px auto 0;
+      min-height: calc(100vh - 120px);
+      padding: 0 1.5rem 8rem;
+    }
+    .docs-content h1 { font-size: 3.5rem; margin-bottom: 1.5rem; }
+    .docs-content h2 { font-size: 1.75rem; margin: 3rem 0 1rem; border-bottom: 1px solid var(--node-border); padding-bottom: 0.5rem; }
+    .docs-content p, .docs-content ul { color: var(--text-muted); line-height: 1.75; margin-bottom: 1.25rem; font-size: 1.05rem; }
+    .docs-content ul { padding-left: 1.5rem; }
+    .docs-content li { margin-bottom: 0.75rem; }
+    
+    .docs-callout {
+      background: rgba(59,130,246,0.06);
+      border-left: 3px solid var(--type-bytes);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1.75rem;
+    }
+    .docs-callout strong { color: var(--type-bytes); display: block; margin-bottom: 0.4rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .docs-callout.warning { background: rgba(245,158,11,0.06); border-color: var(--type-number); }
+    .docs-callout.warning strong { color: var(--type-number); }
+    
+    .email-box {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--node-border);
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      margin: 2.5rem 0;
+    }
+    .email-box a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      color: var(--type-bytes);
+      transition: all 0.2s;
+    }
+    .email-box a:hover {
+      background: rgba(59,130,246,0.1);
+      border-color: var(--type-bytes);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Interactive Canvas Grid Background ── -->
+  <div class="canvas-grid-bg" id="gridBg">
+    <div class="glow-orb orb-primary" id="orb1" style="background: radial-gradient(circle, var(--type-boolean), transparent 70%);"></div>
+    <div class="glow-orb orb-secondary" id="orb2" style="background: radial-gradient(circle, var(--type-bytes), transparent 70%);"></div>
+    <div class="glow-orb orb-tertiary" id="orb3"></div>
+  </div>
+
+  <!-- ── Navigation ── -->
+  <nav class="nav">
+    <a href="index.html" class="nav-brand">
+      <img src="icon.png" alt="CryptoSIM Logo" class="logo-node" style="height: 28px; width: 28px; filter: drop-shadow(0 0 8px rgba(59,130,246,0.6));" />
+      <span>CryptoSIM</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#features">Features</a>
+      <a href="docs.html">Docs</a>
+      <a href="index.html#pro">Professor Mode</a>
+      <a href="donate.html">Donate</a>
+      <a href="mailto:durjoymajumdar02@gmail.com?subject=CryptoSIM%20Contribution" style="color:var(--text-main)">Contribute</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="index.html#download" class="btn btn-primary btn-sm">Get App ↓</a>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <main class="docs-content">
+      
+      <div class="badge" style="color:var(--type-boolean); border-color:var(--type-boolean); background:rgba(34,197,94,0.1)">Get Involved</div>
+      <h1>Help shape CryptoSIM.</h1>
+      <p class="hero-sub" style="font-size:1.2rem; margin-bottom:3rem;">CryptoSIM is a community-driven project with a unique structure. Here is how you can get involved and help us build the ultimate visual cryptography tool.</p>
+
+      <div class="features-grid-layout" style="display:flex; flex-direction:column; gap:2rem;">
+        
+        <!-- Card 1: Core App (Proprietary) -->
+        <div class="brick-node hero-style" style="text-align:left; border-top-color:var(--type-number)">
+          <div class="brick-header cluster-hash">
+            <span class="brick-icon">⚙️</span>
+            <span class="brick-title">CORE APP // PROPRIETARY FREEWARE</span>
+          </div>
+          <div style="padding: 2rem;">
+            <h3 style="margin-top:0">Ideas & Bug Reports</h3>
+            <p>The main CryptoSIM desktop application (the Rust backend, React Flow execution engine, and all 310 bricks) is <strong>proprietary freeware</strong>. To maintain intense focus and stability, we do not have a public GitHub repository for the core app — it cannot be starred or forked.</p>
+            <p>However, the app is 100% free to use forever, and its development is driven entirely by user feedback. If you find a bug or need a specific new brick, let us know!</p>
+          </div>
+        </div>
+
+        <!-- Card 2: Website & Docs -->
+        <div class="brick-node" style="text-align:left; border-top-color:var(--type-bytes)">
+          <div class="brick-header cluster-io">
+            <span class="brick-icon">🌐</span>
+            <span class="brick-title">WEBSITE & DOCS</span>
+          </div>
+          <div style="padding: 2rem;">
+            <h3 style="margin-top:0">Writing Guides</h3>
+            <p>If you want to write a guide on how to build a specific cryptographic circuit, or if you spot a typo in the docs, we warmly welcome your contributions. Just send us an email with your suggestions or content!</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="email-box" style="margin-top: 4rem;">
+        <h2 style="margin-top:0; border:none; padding:0; color:var(--text-main); font-size: 2rem;">One inbox for everything.</h2>
+        <p style="font-size:1.05rem; margin-bottom:1.5rem">Send all website suggestions, desktop bug reports, and brick feature requests right here:</p>
+        <a href="mailto:durjoymajumdar02@gmail.com">
+          ✉ durjoymajumdar02@gmail.com
+        </a>
+      </div>
+
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <span>© 2026 CryptoSIM</span>
+      <div class="footer-links">
+        <a href="donate.html">Donate</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <span>Free Forever. Not open source.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

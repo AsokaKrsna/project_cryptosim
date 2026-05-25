@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support CryptoSIM — Donate</title>
+  <meta name="description" content="Support CryptoSIM development. Every contribution keeps the project alive and free." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="icon.png" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .donate-hero {
+      text-align: center;
+      padding: 12rem 1.5rem 6rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .donate-grid-layout {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto 6rem;
+      padding: 0 1.5rem;
+    }
+    @media (min-width: 800px) {
+      .donate-grid-layout > :nth-child(3) {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: 100%;
+        max-width: 500px;
+      }
+    }
+    .bmac-btn {
+      width: 100%;
+      margin-top: 1.5rem;
+      background: #FFDD00;
+      color: #000;
+      border-color: #FFDD00;
+      font-weight: 800;
+    }
+    .bmac-btn:hover {
+      background: #e6c700;
+      box-shadow: 0 8px 30px rgba(255,221,0,0.3);
+    }
+    .other-ways {
+      list-style: none;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .other-ways li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 1rem;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--node-border);
+      border-radius: 8px;
+    }
+    .other-ways strong { display: block; color: var(--text-main); font-size: 0.95rem; }
+    .other-ways span { font-size: 0.85rem; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <!-- ── Interactive Canvas Grid Background ── -->
+  <div class="canvas-grid-bg" id="gridBg">
+    <div class="glow-orb orb-primary" id="orb1" style="background: radial-gradient(circle, var(--type-point), transparent 70%);"></div>
+    <div class="glow-orb orb-secondary" id="orb2" style="background: radial-gradient(circle, var(--type-number), transparent 70%);"></div>
+    <div class="glow-orb orb-tertiary" id="orb3"></div>
+  </div>
+
+  <!-- ── Navigation ── -->
+  <nav class="nav">
+    <a href="index.html" class="nav-brand">
+      <img src="icon.png" alt="CryptoSIM Logo" class="logo-node" style="height: 28px; width: 28px; filter: drop-shadow(0 0 8px rgba(59,130,246,0.6));" />
+      <span>CryptoSIM</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#features">Features</a>
+      <a href="docs.html">Docs</a>
+      <a href="index.html#pro">Professor Mode</a>
+      <a href="donate.html" style="color:var(--text-main)">Donate</a>
+      <a href="contribute.html">Contribute</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="index.html#download" class="btn btn-primary btn-sm">Get App ↓</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="donate-hero">
+      <div class="badge" style="color:var(--type-point); border-color:var(--type-point); background:rgba(168,85,247,0.1)">Community Supported</div>
+      <h1 style="font-size: clamp(3rem, 6vw, 5rem); margin: 1.5rem 0;">Keep it <span class="text-gradient">free</span>.</h1>
+      <p class="hero-sub">
+        CryptoSIM is and will always be free. If it's saved you hours or helped your students understand cryptography — this is how you say thanks.
+      </p>
+    </section>
+
+    <div class="donate-grid-layout">
+      <!-- UPI -->
+      <div class="brick-node">
+        <div class="brick-header cluster-io" style="border-top-color: var(--type-number)">
+          <span class="brick-icon">📱</span>
+          <span class="brick-title">TRANSFER // UPI</span>
+        </div>
+        <div style="padding: 2rem;">
+          <h3>UPI / QR Code</h3>
+          <p>Instant transfer, zero fees (India)</p>
+          <div style="margin: 2rem 0; padding: 3rem; text-align: center; border: 1px dashed var(--node-border); border-radius: 8px; background: rgba(0,0,0,0.5)">
+            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted)">QR Coming Soon</span>
+          </div>
+          <p style="font-size: 0.8rem">Scan with GPay, PhonePe, Paytm, or any UPI app</p>
+        </div>
+      </div>
+
+      <!-- Buy Me a Coffee -->
+      <div class="brick-node hero-style">
+        <div class="brick-header cluster-zk">
+          <span class="brick-icon">☕</span>
+          <span class="brick-title">SUPPORT // GLOBAL</span>
+        </div>
+        <div style="padding: 2rem;">
+          <h3>Buy Me a Coffee</h3>
+          <p>One-time or monthly support for international users.</p>
+          <a href="#" class="btn btn-large bmac-btn">
+            ☕ Buy me a coffee
+          </a>
+          <p style="font-size: 0.8rem; margin-top: 1.5rem; color: var(--text-dim); text-align: center;">Opens buymeacoffee.com</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <span>© 2026 CryptoSIM</span>
+      <div class="footer-links">
+        <a href="donate.html">Donate</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <span>Free Forever. Not open source.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

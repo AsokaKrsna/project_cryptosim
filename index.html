@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CryptoSIM - The Living Canvas</title>
+  <meta name="description" content="A node-based visual simulator for learning and teaching cryptography, blockchain, and applied mathematics." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="icon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Interactive Canvas Grid Background ── -->
+  <div class="canvas-grid-bg" id="gridBg">
+    <div class="glow-orb orb-primary" id="orb1"></div>
+    <div class="glow-orb orb-secondary" id="orb2"></div>
+    <div class="glow-orb orb-tertiary" id="orb3"></div>
+  </div>
+
+  <!-- ── Navigation ── -->
+  <nav class="nav">
+    <a href="index.html" class="nav-brand">
+      <img src="icon.png" alt="CryptoSIM Logo" class="logo-node" style="height: 28px; width: 28px; filter: drop-shadow(0 0 8px rgba(59,130,246,0.6));" />
+      <span>CryptoSIM</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="docs.html">Docs</a>
+      <a href="#pro">Professor Mode</a>
+      <a href="donate.html">Donate</a>
+      <a href="mailto:durjoymajumdar02@gmail.com?subject=CryptoSIM%20Contribution">Contribute</a>
+      <a href="#contact">Contact</a>
+      <a href="#download" class="btn btn-primary btn-sm">Get App ↓</a>
+    </div>
+  </nav>
+
+  <!-- ── SVG Wire Layer (Draws connections between nodes on scroll) ── -->
+  <svg class="wire-layer" id="wireLayer" xmlns="http://www.w3.org/2000/svg"></svg>
+
+  <main>
+    <!-- ── Hero / Landing Node ── -->
+    <section class="hero-section" id="hero">
+      <div class="brick-node hero-brick" data-node-id="hero">
+        <div class="brick-header cluster-io">
+          <span class="brick-title">USER // INPUT</span>
+          <div class="brick-controls">
+            <span class="control-dot red"></span>
+            <span class="control-dot yellow"></span>
+            <span class="control-dot green"></span>
+          </div>
+        </div>
+        <div class="brick-body">
+          <div class="badge">Tauri v2 • Native Rust</div>
+          <h1>Cryptography you can <br/><span class="text-gradient">feel.</span></h1>
+          <p class="hero-sub">
+            Drag, drop, and wire together 310 cryptographic and blockchain primitives on an infinite, real-time canvas. 
+            No cloud. No accounts. Just pure data flow.
+          </p>
+          <div class="hero-actions">
+            <a href="#download" class="btn btn-primary btn-large">Download for Windows</a>
+            <a href="#features" class="btn btn-ghost btn-large">Explore Nodes</a>
+          </div>
+        </div>
+        <!-- Output Port -->
+        <div class="port port-out" data-port-id="hero-out" data-type="bytes">
+          <div class="port-label">Scroll to Connect</div>
+          <div class="port-handle type-bytes"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Feature Nodes (The "Flow" section) ── -->
+    <section class="features-flow" id="features">
+      
+      <!-- Node 1: Native Crypto -->
+      <div class="brick-node feature-brick pos-left node-crypto" data-node-id="feat-crypto">
+        <!-- Input Port -->
+        <div class="port port-in" data-port-id="feat-crypto-in" data-type="bytes">
+          <div class="port-handle type-bytes"></div>
+        </div>
+        <div class="brick-header cluster-hash">
+          <span class="brick-icon">🦀</span>
+          <span class="brick-title">NATIVE // RUST_COMPUTE</span>
+        </div>
+        <div class="brick-body">
+          <h3>Compiled for Speed</h3>
+          <p>SHA-256, BLAKE3, and AES aren't mocked in JavaScript. They drop down to native Rust, giving you production-grade execution speeds right on your desktop.</p>
+          <div class="tech-tags">
+            <span class="tag">sha2</span>
+            <span class="tag">blake3</span>
+            <span class="tag">aes-gcm</span>
+          </div>
+        </div>
+        <!-- Output Port -->
+        <div class="port port-out" data-port-id="feat-crypto-out" data-type="array">
+          <div class="port-handle type-array"></div>
+        </div>
+      </div>
+
+      <!-- Node 2: ZK & Advanced Math -->
+      <div class="brick-node feature-brick pos-right node-zk" data-node-id="feat-zk">
+        <!-- Input Port -->
+        <div class="port port-in" data-port-id="feat-zk-in" data-type="array">
+          <div class="port-handle type-array"></div>
+        </div>
+        <div class="brick-header cluster-zk">
+          <span class="brick-icon">👁️‍🗨️</span>
+          <span class="brick-title">MATH // ZERO_KNOWLEDGE</span>
+        </div>
+        <div class="brick-body">
+          <h3>The Dark Arts, Visualized</h3>
+          <p>Step inside a Groth16 Prover or watch an Elliptic Curve Scalar Multiplication unfold in real time. We make the invisible math completely transparent.</p>
+          <div class="visual-preview">
+            <code>G * k = PubKey</code>
+            <code>π = (A, B, C)</code>
+          </div>
+        </div>
+        <!-- Output Port -->
+        <div class="port port-out" data-port-id="feat-zk-out" data-type="point">
+          <div class="port-handle type-point"></div>
+        </div>
+      </div>
+
+      <!-- Node 3: Blockchain Consensus -->
+      <div class="brick-node feature-brick pos-left node-chain" data-node-id="feat-chain">
+        <!-- Input Port -->
+        <div class="port port-in" data-port-id="feat-chain-in" data-type="point">
+          <div class="port-handle type-point"></div>
+        </div>
+        <div class="brick-header cluster-consensus">
+          <span class="brick-icon">⛓️</span>
+          <span class="brick-title">NETWORK // CONSENSUS</span>
+        </div>
+        <div class="brick-body">
+          <h3>Simulate the Network</h3>
+          <p>Scale up to simulate 51% attacks, Proof-of-Work mining races, or selfish mining vectors. Build a functional UTXO model entirely out of visual nodes.</p>
+        </div>
+        <!-- Output Port -->
+        <div class="port port-out" data-port-id="feat-chain-out" data-type="number">
+          <div class="port-handle type-number"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ── Professor Mode Node ── -->
+    <section class="pro-section" id="pro">
+      <div class="brick-node pro-brick" data-node-id="pro">
+        <div class="port port-in" data-port-id="pro-in" data-type="number">
+          <div class="port-handle type-number"></div>
+        </div>
+        <div class="brick-header cluster-state">
+          <span class="brick-icon">🎓</span>
+          <span class="brick-title">SYSTEM // PROFESSOR_MODE</span>
+        </div>
+        <div class="brick-body pro-layout">
+          <div class="pro-text">
+            <h2>Build Interactive Lessons.</h2>
+            <p>Assemble a cryptography problem, lock specific config fields, set an objective success condition, and export it as a <code>.cryptosim</code> file for your students.</p>
+            <ul class="pro-features">
+              <li>🔒 Lock individual bricks or ports</li>
+              <li>🎯 Set input/output validation objectives</li>
+              <li>📝 Add rich markdown annotations to the canvas</li>
+            </ul>
+          </div>
+        </div>
+        <div class="port port-out" data-port-id="pro-out" data-type="any">
+          <div class="port-handle type-any"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Terminal Download Section ── -->
+    <section class="download-section" id="download">
+      <div class="terminal-window" data-node-id="download">
+        <div class="port port-in" data-port-id="download-in" data-type="any" style="top: 50%; transform: translateY(-50%);">
+          <div class="port-handle type-any"></div>
+        </div>
+        <div class="terminal-header">
+          <div class="term-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="term-title">installer.exe</div>
+        </div>
+        <div class="terminal-body">
+          <div class="term-line"><span class="prompt">~></span> fetching latest release...</div>
+          <div class="term-line success">✓ found v1.0.2 (Windows & Linux)</div>
+          <div class="term-line"><span class="prompt">~></span> size: ~3 MB</div>
+          <div class="term-line"><span class="prompt">~></span> network: offline-first</div>
+          
+          <div class="download-actions" style="margin-top: 2rem; text-align: left;">
+            <p style="margin-bottom: 1rem; color: var(--text-main); font-family: var(--font-body); font-weight: 500;">
+              No installation required on Windows (Portable), standard install for Linux.
+            </p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <a href="downloads/CryptoSim_Setup_v1.0.2.exe" class="btn btn-primary btn-large" style="flex: 1;">
+                Download for Windows (.exe)
+              </a>
+              <a href="downloads/CryptoSim_v1.0.2_amd64.deb" class="btn btn-ghost btn-large" style="flex: 1;">
+                Download for Linux (.deb)
+              </a>
+            </div>
+            <p class="crypto-note" style="margin-top: 1.5rem;">macOS support requires Apple Developer licenses. <a href="donate.html">Support the project</a>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Extra Features Grid ── -->
+    <section class="features-grid-section glass-container" id="all-features">
+      <div class="section-center-header">
+        <h2>Everything in one canvas.</h2>
+      </div>
+      <div class="features-grid-layout">
+        <div class="brick-node feature-mini-card">
+          <span class="brick-icon">🚀</span>
+          <h3>Native OS Integration</h3>
+          <p>Double-click any <code>.cryptosim</code> lesson file to instantly launch the app and open the canvas.</p>
+        </div>
+        <div class="brick-node feature-mini-card">
+          <span class="brick-icon">🔗</span>
+          <h3>Visual Dataflow</h3>
+          <p>Drag, drop, and wire operations together. Data flows through your circuit in real time — no code required.</p>
+        </div>
+        <div class="brick-node feature-mini-card">
+          <span class="brick-icon">🦀</span>
+          <h3>Native-Speed Crypto</h3>
+          <p>SHA-256, BLAKE3, AES, HMAC run as compiled Rust — the same speed as production implementations.</p>
+        </div>
+        <div class="brick-node feature-mini-card">
+          <span class="brick-icon">🎓</span>
+          <h3>Professor Mode</h3>
+          <p>Build interactive lessons with locked bricks, objectives, and guided hints. Share as a single <code>.cryptosim</code> file.</p>
+        </div>
+        <div class="brick-node feature-mini-card">
+          <span class="brick-icon">🔐</span>
+          <h3>Asymmetric & ZK</h3>
+          <p>ECDSA, Schnorr, RSA, EdDSA, Zero-Knowledge proofs, and Sigma protocols — all visualised step by step.</p>
+        </div>
+        <div class="brick-node feature-mini-card">
+          <span class="brick-icon">⛓</span>
+          <h3>Blockchain Simulations</h3>
+          <p>Build a UTXO chain, simulate a 51% attack, model selfish mining, or explore Merkle tree proofs.</p>
+        </div>
+        <div class="brick-node feature-mini-card">
+          <span class="brick-icon">🔍</span>
+          <h3>Deep Data Inspector</h3>
+          <p>Click any byte array to open a professional-grade hex dump, complete with ASCII, Base64, and Decimal translations.</p>
+        </div>
+        <div class="brick-node feature-mini-card">
+          <span class="brick-icon">⏱️</span>
+          <h3>Visual Debugger</h3>
+          <p>Slow down the execution engine to 0.5s or 1.0s and trace data flow step-by-step through complex cryptographic circuits.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Community ── -->
+    <section class="community-section glass-container" id="community">
+      <div class="section-center-header">
+        <h2>Built with people in mind.</h2>
+      </div>
+      <div class="community-grid-layout">
+        <div class="brick-node community-card">
+          <div class="brick-icon">🐛</div>
+          <h3>Bug Reports</h3>
+          <p>Found something broken? We want to know.</p>
+          <a href="mailto:durjoymajumdar02@gmail.com?subject=CryptoSIM%20Bug%20Report" class="community-link text-gradient">Send a report →</a>
+        </div>
+        <div class="brick-node community-card">
+          <div class="brick-icon">💡</div>
+          <h3>Feature Requests</h3>
+          <p>Have an idea for a new brick or workflow? We read everything.</p>
+          <a href="mailto:durjoymajumdar02@gmail.com?subject=CryptoSIM%20Feature%20Request" class="community-link text-gradient">Share your idea →</a>
+        </div>
+        <div class="brick-node community-card">
+          <div class="brick-icon">🤝</div>
+          <h3>Contribute</h3>
+          <p>Want to build a brick or improve documentation? All contributions are deeply appreciated.</p>
+          <a href="mailto:durjoymajumdar02@gmail.com?subject=CryptoSIM%20Contribution" class="community-link text-gradient">Get in touch →</a>
+        </div>
+        <div class="brick-node community-card hero-style">
+          <div class="brick-icon">☕</div>
+          <h3>Support Development</h3>
+          <p>CryptoSIM is free. If it's helped you, consider buying us a coffee.</p>
+          <a href="donate.html" class="btn btn-primary" style="margin-top:auto;">Donate →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Contact ── -->
+    <section class="contact-section" id="contact">
+      <div class="brick-node contact-card">
+        <h2>One inbox.<br/><span class="text-gradient">All of the above.</span></h2>
+        <p>Bug reports, feature requests, vulnerability disclosures, contributions, or just saying hi — it all goes here.</p>
+        <a href="mailto:durjoymajumdar02@gmail.com" class="contact-email">
+          <span class="brick-icon">✉</span>
+          durjoymajumdar02@gmail.com
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <span>© 2026 CryptoSIM</span>
+      <div class="footer-links">
+        <a href="donate.html">Donate</a>
+        <a href="mailto:durjoymajumdar02@gmail.com">Contact</a>
+      </div>
+      <span>Free Forever. Not open source.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
